@@ -121,7 +121,9 @@ h1 {
 .label-score {
   margin-bottom: 2rem;
 }
-
+.link{
+  text-align: center;
+}
 #github{
   font-size: 2.5rem;
   background-color: black;
