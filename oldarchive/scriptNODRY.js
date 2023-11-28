@@ -2,33 +2,17 @@
 
 const userName = prompt("Enter your Name.");
 document.querySelector("#un").textContent = userName;
-const updatingMessageClass = (value) => {
-    document.querySelector(".message").textContent = value;
-};
-
-const updatingScores = (valueSuper, value) => {
-    updatingMessageClass(valueSuper);
-    document.querySelector(".score").textContent = value;
-}
-
-const updatingMiscellaneousFields = (valNumber, valAgain, valGuess) => {
-    document.querySelector(".number").textContent = valNumber;
-    document.querySelector(".again").textContent = valAgain;
-    document.querySelector(".guess").value = valGuess;
-};
-
-const updatingHighScore = (value) => {
-    document.querySelector(".highscore").textContent = value;
-};
 const reset = function (){
     score = 20;
     number = Math.trunc(Math.random()*20)+1;
-    updatingMiscellaneousFields("?", "Again!", "");
-    updatingScores("Start guessing...", score);
-    
+    document.querySelector(".number").textContent = "?";
+    document.querySelector('.guess').value = '';
+    document.querySelector(".message").textContent ="Start guessing..."
+
   document.querySelector('body').style.backgroundColor = 'rebeccapurple';
   document.querySelector('.number').style.width = '15rem';
-    updatingHighScore(highScore);
+    document.querySelector(".score").textContent = 20;
+    document.querySelector(".highscore").textContent = highScore;
     console.log("ORIGINAL NUMBER", number);
 }
 const gameLogic = function () {
@@ -37,13 +21,17 @@ const gameLogic = function () {
     console.log(typeof(guess), guess, "original num", number);
     
     if(!guess) {
-        updatingMessageClass("!!No Number!!");
+        document.querySelector(".message").textContent = "!!No Number!!";
+        
     } else if(guess === number) {
+        document.querySelector(".message").textContent = "YAY!! Correct guess. 😍😍";
         score--;
         highScore = score;
-        updatingScores("Start guessing...", score);
-        updatingHighScore(highScore);
-        updatingMiscellaneousFields(guess, "Again??", "");
+        document.querySelector(".score").textContent = score;
+        document.querySelector(".highscore").textContent = highScore;
+        document.querySelector(".number").textContent = guess;
+        document.querySelector(".again").textContent = "Again??";
+        document.querySelector(".guess").value = "";
 
         document.querySelector("body").style.backgroundColor = "#60b347"; 
         document.querySelector(".number").style.width = "25rem";
@@ -51,11 +39,13 @@ const gameLogic = function () {
         document.querySelector(".number").style.fontSize = "10rem";
         return;
     } else if(guess > number) {
+        document.querySelector(".message").textContent = "Too High!!📈📈";
         score--;
-        updatingScores("Too High!!📈📈", score);
+        document.querySelector(".score").textContent = score;
     } else if(guess < number) {
+        document.querySelector(".message").textContent = "Too Low!!📉📉";
         score--;
-        updatingScores("Too Low!!📉📉", score)
+        document.querySelector(".score").textContent = score;
     }
 
     if(score === 0) {
@@ -69,13 +59,15 @@ let number = Math.trunc(Math.random()*20)+1;
 let score = 20;
 let highScore = 0;
 console.log("ORIGINAL NUMBER", number);
+// document.querySelector(".guess").value = 19;
 
 
 
 document.querySelector(".check").addEventListener("click", function () {
+    // const guess = document.querySelector(".guess").value;
+    // console.log(guess);
     gameLogic();
 });
-
 document.querySelector(".again").addEventListener("click", function(){
     reset();
 });
