@@ -41,7 +41,7 @@ const gameLogic = function () {
     } else if(guess === number) {
         score--;
         highScore = score;
-        updatingScores("Start guessing...", score);
+        updatingScores("YAY!! Correct guess. 😍😍", score);
         updatingHighScore(highScore);
         updatingMiscellaneousFields(guess, "Again??", "");
 
